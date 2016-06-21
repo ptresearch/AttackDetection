@@ -1,0 +1,8 @@
+# NBNS packets from external net to home net
+alert udp $EXTERNAL_NET 137 -> $HOME_NET 137 (msg: "[PT Open] BadTunnel NBNS Flood"; flow: no_stream; threshold: type both, track by_src, count 5, seconds 1; reference: url, xlab.tencent.com/en/2016/06/17/BadTunnel-A-New-Hope/; reference: cve, 2016-3213; classtype: attempted-recon; sid: 10000051; rev:1;)
+
+# BadTunnel WPAD spoofing attempt via NBNS
+alert udp $EXTERNAL_NET 137 -> $HOME_NET 137 (msg: "[PT Open] BadTunnel WPAD spoofing attempt via NBNS"; flow: no_stream; content: "|46 48 46 41 45 42 45 45|"; offset: 13; depth: 8; threshold: type limit, track by_dst, count 1, seconds 30; reference: url, xlab.tencent.com/en/2016/06/17/BadTunnel-A-New-Hope/; reference: cve, 2016-3236; classtype: attempted-recon; sid: 10000052; rev:1;)
+
+# BadTunnel ISATAP spoofing attempt via NBNS
+alert udp $EXTERNAL_NET 137 -> $HOME_NET 137 (msg: "[PT Open] BadTunnel ISATAP spoofing attempt via NBNS"; flow: no_stream; content: "|45 4A 46 44 45 42 46 45 45 42 46 41|"; offset: 13; depth: 12; threshold: type limit, track by_dst, count 1, seconds 30; reference: url, xlab.tencent.com/en/2016/06/17/BadTunnel-A-New-Hope/; reference: cve, 2016-3236; classtype: attempted-recon; sid: 10000053; rev:1;)
