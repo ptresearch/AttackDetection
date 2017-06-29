@@ -6,4 +6,4 @@ This repository consisting of folders with self-explanatory names contains Suric
 ## SID range
 We use SID 10000000-10999999 for our rules.
 ## License
-This software is provided under under a custom License. See the accompanying LICENSE file for more information.
+This software is provided under a custom License. See the accompanying LICENSE file for more information.
