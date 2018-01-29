@@ -1,11 +1,5 @@
 alert udp any 53 -> $HOME_NET any (msg: "[PT OPEN] DNS Rebinding attack in progress"; flow: established, from_server; content: "|00 01 00 01|"; offset: 4; depth: 4; content: "|00 01 00 01 00 00 00 00 00 04|"; distance: 0; content: !"|7F|"; within: 1; xbits: set, DNSREBINDING.NON_LOCALHOST, track ip_pair, expire 10; flowbits: noalert; classtype: attempted-admin; sid: 10002488; rev: 2; )
 
-alert udp any 53 -> $HOME_NET any (msg: "[PT OPEN] DNS Rebinding attack in progress"; flow: established, from_server; content: "|00 01 00 01|"; offset: 4; depth: 4; content: "|00 01 00 01 00 00 00 01 00 04|"; distance: 0; content: !"|7F|"; within: 1; xbits: set, DNSREBINDING.NON_LOCALHOST, track ip_pair, expire 10; flowbits: noalert; classtype: attempted-admin; sid: 10002491; rev: 2; )
-
 alert udp any 53 -> $HOME_NET any (msg: "[PT OPEN] DNS Rebinding attack in progress"; flow: established, from_server; content: "|00 01 00 01|"; offset: 4; depth: 4; content: "|00 01 00 01 00 00 00 00 00 04 7F 00 00 01|"; distance: 0; xbits: isset, DNSREBINDING.NON_LOCALHOST, track ip_pair; threshold: type both, track by_src, count 1, seconds 30; classtype: attempted-admin; sid: 10002489; rev: 1; )
 
-alert udp any 53 -> $HOME_NET any (msg: "[PT OPEN] DNS Rebinding attack in progress"; flow: established, from_server; content: "|00 01 00 01|"; offset: 4; depth: 4; content: "|00 01 00 01 00 00 00 01 00 04 7F 00 00 01|"; distance: 0; xbits: isset, DNSREBINDING.NON_LOCALHOST, track ip_pair; threshold: type both, track by_src, count 1, seconds 30; classtype: attempted-admin; sid: 10002492; rev: 1; )
-
 alert udp any 53 -> $HOME_NET any (msg: "[PT OPEN] Possible DNS Rebinding attack"; flow: established, from_server; content: "|00 01 00 01|"; offset: 4; depth: 4; content: "|00 01 00 01 00 00 00 00 00 04 7F 00 00 01|"; distance: 0; threshold: type both, track by_src, count 1, seconds 30; classtype: attempted-admin; sid: 10002490; rev: 1; )
-
-alert udp any 53 -> $HOME_NET any (msg: "[PT OPEN] Possible DNS Rebinding attack"; flow: established, from_server; content: "|00 01 00 01|"; offset: 4; depth: 4; content: "|00 01 00 01 00 00 00 01 00 04 7F 00 00 01|"; distance: 0; threshold: type both, track by_src, count 1, seconds 30; classtype: attempted-admin; sid: 10002493; rev: 1; )
