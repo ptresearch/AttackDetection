@@ -1,0 +1,1 @@
+alert tcp any any -> any any (msg: "[PT OPEN] PHP Object Deserialization RCE POP Chain (Guzzle/RCE1)"; flow: established; content: "GuzzleHttp|5C|Psr7|5C|FnStream"; content: "close"; distance: 0; content: "GuzzleHttp|5C|HandlerStack"; distance: 0; content: "resolve"; distance: 0; reference: url, github.com/ambionics/phpggc; classtype: attempted-admin; sid: 10003494; rev: 1; )
