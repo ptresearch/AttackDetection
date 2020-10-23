@@ -4,5 +4,7 @@ alert tcp !$DC_SERVERS any -> $DC_SERVERS [1024:] (msg: "ATTACK AD [PTsecurity] 
 
 alert tcp !$DC_SERVERS any -> $DC_SERVERS 389 (msg: "ATTACK [PTsecurity] DCShadow: Fake DC Creation"; flow: established, to_server; content: "|68 84 00|"; content: "CN="; distance: 5; within: 3; content: "CN=Servers,CN="; distance: 0; content: ",CN=Sites,CN=Configuration,DC="; distance: 0; content: "objectClass"; distance: 0; content: "server"; distance: 0; reference: url, blog.alsid.eu/dcshadow-explained-4510f52fc19d; classtype: attempted-admin; reference: url, github.com/ptresearch/AttackDetection; metadata: Open Ptsecurity.com ruleset; sid: 10002559; rev: 2; )
 
+alert tcp !$DC_SERVERS any -> $DC_SERVERS 389 (msg: "ATTACK [PTsecurity] DCShadow: Fake DC Creation (delete nTDSDSA object)"; flow: established, to_server; content: "|4a|"; content: "CN=NTDS|20|Settings,CN="; within: 20; distance: 1; content: ",CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC="; reference: url, github.com/AlsidOfficial/UncoverDCShadow; classtype: attempted-admin; sid: 10002560; rev: 1; )
+
 #alert dcerpc any any -> $HOME_NET any (msg: "ATTACK AD [PTsecurity] DCShadow Replication Attempt - DRSUAPI_REPLICA_ADD"; flow: established; dce_iface: e3514235-4b06-11d1-ab04-00c04fc2dcd2; dce_opnum: 5; reference: url, blog.alsid.eu/dcshadow-explained-4510f52fc19d; classtype: attempted-admin; reference: url, github.com/ptresearch/AttackDetection; metadata: Open Ptsecurity.com ruleset; sid: 10002570; rev: 1; )
 
