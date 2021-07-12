@@ -1,0 +1,8 @@
+alert tcp any any -> any any (msg: "ATTACK [PTsecurity] IREMOTEWINSPOOL Bind"; flow: established, to_server; content: "|96 3F F0 76 FD CD FC 44 A2 2C 64 95 0A 00 12 09|"; flowbits: set, DCERPC.IREMOTEWINSPOOL.Bind; flowbits: noalert; reference: url, github.com/ptresearch/AttackDetection; metadata: Open Ptsecurity.com ruleset; classtype: attempted-admin; sid: 10006624; rev: 1;)
+
+alert tcp any any -> any any (msg: "ATTACK [PTsecurity] PrintNightmare attempt (CVE-2021-1675)"; flow: established, to_server; content: "|05 00 00|"; content: "|27 00|"; distance: 19; within: 2; flowbits: isset, DCERPC.IREMOTEWINSPOOL.Bind; threshold: type limit, track by_dst, count 1, seconds 60; reference: url, github.com/ptresearch/AttackDetection; reference: url, github.com/gentilkiwi/mimikatz/releases/tag/2.2.0-20210709; reference: cve, 2021-1675; metadata: Open Ptsecurity.com ruleset; classtype: attempted-admin; sid: 10006625; rev: 1;)
+
+alert tcp any any -> any any (msg: "ATTACK [PTsecurity] SPOOLSS Bind"; flow: established, to_server; content: "|78 56 34 12 34 12 CD AB EF 00 01 23 45 67 89 AB|"; flowbits: set, DCERPC.SPOOLSS.Bind; flowbits: noalert; reference: url, github.com/ptresearch/AttackDetection; metadata: Open Ptsecurity.com ruleset; classtype: attempted-admin; sid: 10006626; rev: 1;)
+
+alert tcp any any -> any any (msg: "ATTACK [PTsecurity] PrintNightmare attempt (CVE-2021-1675)"; flow: established, to_server; content: "|05 00 00|"; content: "|59 00|"; distance: 19; within: 2; flowbits: isset, DCERPC.SPOOLSS.Bind; threshold: type limit, track by_dst, count 1, seconds 60; reference: url, github.com/ptresearch/AttackDetection; reference: cve, 2021-1675; metadata: Open Ptsecurity.com ruleset; classtype: attempted-admin; sid: 10006627; rev: 1;)
+
