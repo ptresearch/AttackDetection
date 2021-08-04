@@ -185,7 +185,8 @@
 
 #alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg: "MALWARE [PTsecurity] Backdor.W32/Virut"; flow: established, to_server; dsize: <13; stream_size: server, <,400; stream_size: client, <,90;  flowbits: isset, FB303766_2; flowbits: unset, FB303766_2;  classtype: trojan-activity; metadata: created_at 2017_7_17; reference: url, github.com/ptresearch/AttackDetection; sid: 11002264; rev: 2;)
 
-###################### Telegram Messenger v1  
+###################### Telegram Messenger v1 
+###################### Now outdated, use Telegram MTProto rules 
 #alert tcp $HOME_NET any -> $EXTERNAL_NET 443 (msg: "POLICY [PTsecurity] Telegram Messenger v1 pkt checker #0"; flow: established, to_server; dsize: 89; stream_size: client, <,800; flowbits: noalert; flowbits: set, FB_Telegram_0; classtype: trojan-activity; metadata: created_at 2017_7_19; reference: url, github.com/ptresearch/AttackDetection; sid: 11001578; rev: 1;) 
 
 #alert tcp $HOME_NET any -> $EXTERNAL_NET 443 (msg: "POLICY [PTsecurity] Telegram Messenger v1 pkt checker #1"; flow: established, to_server; dsize: 89; stream_size: client, <,1500; flowbits: noalert; flowbits: isset, FB_Telegram_0; flowbits: unset, FB_Telegram_0; flowbits: set, FB_Telegram_1; classtype: trojan-activity; metadata: created_at 2017_7_19; reference: url, github.com/ptresearch/AttackDetection; sid: 11001579; rev: 1;) 
