@@ -1,3 +1,10 @@
+# Rules 10006530 and 10006531 work in appliances with ssl/tls mitm
 alert http $HOME_NET any -> $EXTERNAL_NET any (msg: "BACKDOOR [PTsecurity] SSVagent.APT31"; flow: established, to_server; content: "|00 00 00 01 00 00 00 01 00 00 00|"; offset: 1; depth: 11; http_client_body; pcre: "/^[A-F-0-9]{32}/RP"; reference: url, github.com/ptresearch/AttackDetection; metadata: created_at 2021_05_13, updated_at 2021_05_14; classtype: trojan-activity; sid: 10006530; rev: 1;)
 
-alert http $HOME_NET any -> $EXTERNAL_NET any (msg: "BACKDOOR [PTsecurity] Possible SSVagent.APT31"; flow: established, to_server;content: "|00 00 00|"; offset: 1; depth: 3; http_client_body; pcre: "/^.{12}[A-F-0-9]{32}/P";byte_jump: 1, 0, from_beginning; isdataat: !5, relative; isdataat: 4, relative; reference: url, github.com/ptresearch/AttackDetection; classtype: trojan-activity; sid: 10006531; rev: 1;)
+## Snort version 
+# alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg: "BACKDOOR [PTsecurity] SSVagent.APT31"; flow: established, to_server; content: "POST"; depth: 4; content: "|0d0a 0d0a|"; within: 300; content: "|00 00 00 01 00 00 00 01 00 00 00|"; distance: 1; within: 11; pcre: "/^[A-F-0-9]{32}/R"; reference: url, github.com/ptresearch/AttackDetection; classtype: trojan-activity; sid: 10006530; rev: 1;)
+
+alert http $HOME_NET any -> $EXTERNAL_NET any (msg: "BACKDOOR [PTsecurity] Possible SSVagent.APT31"; flow: established, to_server;content: "|00 00 00|"; offset: 1; depth: 3; http_client_body;pcre: "/^.{12}[A-F-0-9]{32}/P"; content: "|0d0a 0d0a|"; depth: 300; byte_jump: 1, 0, relative; isdataat: !5, relative;classtype: trojan-activity; sid: 10006531; rev: 2;)
+
+alert tcp any any -> any any (msg: "BACKDOOR [PTsecurity] SSVagent.APT31 SSL certificate"; flow:established,from_server; content: "|550403|"; depth: 3000;content: "|10|www.flushcdn.com0"; distance: 1; within: 18;content: "|55040a|"; depth: 3000;content: "|08|GoGetSSL1"; distance: 1; within: 10; reference: url, github.com/ptresearch/AttackDetection; classtype: trojan-activity; sid: 10006685; rev: 1;)
+
