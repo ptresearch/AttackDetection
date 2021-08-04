@@ -6,6 +6,6 @@ This repository consisting of folders with self-explanatory names contains Suric
 
 :wrench: Some rules in this repo are aimed to detect communications under TLS. Please, set ```encryption-handling: full``` in suricata.yaml configuration file to activate them.
 ## SID range
-We use SID 10000000-10999999 for our rules.
+We use SID 10000000-11999999 for our rules.
 ## License
 This software is provided under a custom License. See the accompanying LICENSE file for more information.
