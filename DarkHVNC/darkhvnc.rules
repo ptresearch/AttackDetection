@@ -1,0 +1,2 @@
+alert tcp any any -> any any (msg: "REMOTE [PTsecurity] DarkHVNC"; flow: established, to_server; stream_size: client, =, 11;stream_size: server, =, 1;dsize: 10; content: "AVE_MARIA"; depth: 9; reference: url, app.any.run/tasks/48ad8f56-2255-47bf-a988-e0602c11f4b0; metadata: id 1927656; metadata: created_at 2021_09_29; classtype: trojan-activity; sid: 10006793; rev: 1;)
+
