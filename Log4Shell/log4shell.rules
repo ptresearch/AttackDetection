@@ -1,0 +1,2 @@
+alert http any any -> any any (msg: "ATTACK [PTsecurity] log4j RCE aka Log4Shell attempt (CVE-2021-44228)"; flow: established; content: "${"; content: "jndi:ldap://"; distance: 0; nocase; reference: cve, 2021-44228; reference: url, www.lunasec.io/docs/blog/log4j-zero-day; reference: url, github.com/ptresearch/AttackDetection; metadata: created_at 2021_12_10, updated_at 2021_12_10; classtype: attempted-admin; sid: 10006897; rev: 2;)
+
