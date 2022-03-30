@@ -1,0 +1,2 @@
+alert http any any -> any any (msg: "ATTACK [PTsecurity] Spring Core RCE aka Spring4Shell Attempt"; flow: established; content: "pipeline.first.pattern"; nocase; content: "getRuntime"; nocase; distance: 0; content: "exec"; nocase; pcre: "/(?:%25|%)(?:%7B|{)/i"; pcre: "/(?:%7D|})i/i"; reference: url, github.com/ptresearch/AttackDetection; reference: url, www.cyberkendra.com/2022/03/springshell-rce-0-day-vulnerability.html; classtype: attempted-admin; sid: 10007107; rev: 1;)
+
